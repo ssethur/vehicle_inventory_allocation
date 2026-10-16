@@ -1,16 +1,16 @@
-class car_model{
-  private String model;
+class Model{
+  private String modelType;
   private String variant;
   private double price;
 
-car_model(String model, List<String> variant, double price){
-  this.model=model;
+Model(String modelType, String variant, double price){
+  this.modelType=modelType;
   this.variant = variant;
   this.price=price;
   }
 
-public String getModel(){
-  return model;
+public String getModelType(){
+  return modelType;
 }
 
 public String getVariant(){
