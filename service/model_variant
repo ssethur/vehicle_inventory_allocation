@@ -1,4 +1,7 @@
- List<Model> cars = Arrays.asList(
+
+// Code to get the different model of cars with different variant and get the highest 3 variant price using streams
+
+List<Model> cars = Arrays.asList(
             new Model("Nexon", "Petrol", 8.0),
             new Model("Nexon", "Diesel", 12.0),
             new Model("Nexon", "EV", 15.0),
