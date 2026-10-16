@@ -1,15 +1,22 @@
- List<model> cars = Arrays.asList(
-            new model("Nexon", "Petrol", 8.0),
-            new model("Nexon", "Diesel", 12.0),
-            new model("Nexon", "EV", 15.0),
-            new model("Nexon", "CNG", 10.0),
-            new model("Harrier", "Pure", 16.0),
-            new model("Harrier", "Adventure", 20.0),
-            new model("Harrier", "Fearless", 25.0),
-            new model("Harrier", "Smart", 14.0),
-            new model("Safari", "Pure", 17.0),
-            new model("Safari", "Accomplished", 24.0),
-            new model("Safari", "Adventure", 21.0)
+ List<Model> cars = Arrays.asList(
+            new Model("Nexon", "Petrol", 8.0),
+            new Model("Nexon", "Diesel", 12.0),
+            new Model("Nexon", "EV", 15.0),
+            new Model("Nexon", "CNG", 10.0),
+            new Model("Harrier", "Pure", 16.0),
+            new Model("Harrier", "Adventure", 20.0),
+            new Model("Harrier", "Fearless", 25.0),
+            new Model("Harrier", "Smart", 14.0),
+            new Model("Safari", "Pure", 17.0),
+            new Model("Safari", "Accomplished", 24.0),
+            new Model("Safari", "Adventure", 21.0)
         );
-Map<String,List<model>> = cars.stream().collect(Collectors.groupingBy(cars::getModel,TreeMap::new,Collectors.collectingAndThen
-(
+Map<String,List<Model>> = cars.stream().collect(Collectors.groupingBy(cars::getModelType,TreeMap::new,Collectors.collectingAndThen(
+                          Collector.toList(), list->list.stream().sorted(Comparator.comparingDouble(model::getPrice).reversed())
+                          .limit(3).collect(Collectors.toList())
+                           );
+result.forEach((model, variants) -> {
+            System.out.println("\nModel: " + model);
+            variants.forEach(System.out::println);
+        });
+                          
