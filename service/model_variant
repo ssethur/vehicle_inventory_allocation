@@ -1,0 +1,15 @@
+ List<car_model> cars = Arrays.asList(
+            new car_model("Nexon", "Petrol", 8.0),
+            new car_model("Nexon", "Diesel", 12.0),
+            new car_model("Nexon", "EV", 15.0),
+            new car_model("Nexon", "CNG", 10.0),
+            new Car("Harrier", "Pure", 16.0),
+            new Car("Harrier", "Adventure", 20.0),
+            new Car("Harrier", "Fearless", 25.0),
+            new Car("Harrier", "Smart", 14.0),
+            new Car("Safari", "Pure", 17.0),
+            new Car("Safari", "Accomplished", 24.0),
+            new Car("Safari", "Adventure", 21.0)
+        );
+Map<String,List<cars>> = cars.stream().collect(Collectors.groupingBy(cars::getModel,TreeMap::new,Collectors.collectingAndThen
+(
