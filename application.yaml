@@ -1,1 +1,15 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      vehicleCatalog:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 2
 
+  retry:
+    instances:
+      vehicleCatalog:
+        maxAttempts: 3
+        waitDuration: 500ms
