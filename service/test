@@ -1,0 +1,14 @@
+@Service
+public class inventoryService{
+
+ private final RestClient restClient;
+
+ public InventoryService(RestClient.Builder builder){
+   this.restClient = builder.url("http://localhost:8080/");
+ }
+
+public Boolean isAvailable(String vin){
+  return sd
+}
+
+}
