@@ -1,0 +1,37 @@
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
+@Service
+public class InventoryClient {
+
+    private final RestClient restClient;
+
+    public InventoryClient(RestClient.Builder builder) {
+        this.restClient = builder
+            .baseUrl("http://localhost:8081")
+            .build();
+    }
+
+    @Retry(name = "inventoryService")
+    @CircuitBreaker(
+        name = "inventoryService",
+        fallbackMethod = "inventoryFallback"
+    )
+    public Boolean isAvailable(String vin) {
+        return restClient.get()
+            .uri("/api/inventory/{vin}/availability", vin)
+            .retrieve()
+            .body(Boolean.class);
+    }
+
+    public Boolean inventoryFallback(
+            String vin, Exception ex) {
+
+        // Never assume the vehicle is available
+        throw new InventoryUnavailableException(
+            "Inventory service unavailable for VIN: " + vin
+        );
+    }
+}
