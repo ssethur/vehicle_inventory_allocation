@@ -3,6 +3,6 @@ public class VehicleRepository{
 
   @Lock(LockModeType=PESSIMISTIC_WRITE)
   @Query("Select * from Vehicle v where v.vin=:vin)
-  Optional<Vehicle> findByVinIdfor Update(){
+  Optional<Vehicle> findByVinIdforUpdate(){
     @Param("vin") String vin
   }
