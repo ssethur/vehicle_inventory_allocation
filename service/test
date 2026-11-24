@@ -1,20 +1,19 @@
 @Service
-public class inventoryService{
+public class inventoryClient{
 
-private RestClient restClient;
+private final RestClient restClient;
 
-public InventoryService(RestClient.Builder builder){
- this.restClient=builder.url("http://localhost:8080").build();
+public InventoryClient(RestClient.Builder builder){
+ this.restClient=builder.baseUrl("http://localhost:8080").build;
 }
 
-@retry(name="inventoryService")
-@CircuitBreaker(name="inventoryService" fallBack="fallbackInventoryService")
+@Retry(name="inventoryClient")
+@CircuitBreaker(name="inventoryClient" fallbackMethod="inventoryFallback")
 public Boolean isAvailable(String vin){
- return restClient.get().uri("/api/inventory/{vin}/availability",vin).retrieve().Boolean(Body.class);
+ return restClient.get().uri("/api/inventory/{vin}/availability/",vin).retrieve().body(Boolean.class);
 }
 
-public String fallbackInventoryService(Exception e, String Vin){
- thrrow new VehicleUnavailableException("Vehicle not available"+vin);
+public Boolean inventoryFallback(Exception e, String vin){
+ throw new InventoryException("Inventory not available for vin:"+vin);
 }
-
 }
