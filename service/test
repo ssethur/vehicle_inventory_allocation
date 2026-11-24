@@ -1,19 +1,8 @@
-@Service
-public class inventoryClient{
-
-private final RestClient restClient;
-
-public InventoryClient(RestClient.Builder builder){
- this.restClient=builder.baseUrl("http://localhost:8080").build;
-}
-
-@Retry(name="inventoryClient")
-@CircuitBreaker(name="inventoryClient" fallbackMethod="inventoryFallback")
-public Boolean isAvailable(String vin){
- return restClient.get().uri("/api/inventory/{vin}/availability/",vin).retrieve().body(Boolean.class);
-}
-
-public Boolean inventoryFallback(Exception e, String vin){
- throw new InventoryException("Inventory not available for vin:"+vin);
-}
+@Repository
+public class inventoryRepository{
+@Lock(LocakModetype=PESSIMISTIC.WRITE)
+@Query(Select *from vehicle v where vin=:vin)
+Optional<Vehicle> findvinforupdate(){
+  @Param("vin") String vin;
+ }
 }
