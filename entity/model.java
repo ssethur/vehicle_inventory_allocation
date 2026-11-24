@@ -1,3 +1,5 @@
+@Entity
+@Table(name="Model")
 class Model{
   private String modelType;
   private String variant;
